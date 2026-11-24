@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DORA — Download</title>
+<!-- Unlisted: not linked from the All apps page, and asks search engines not to list it. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Download DORA for Android.">
+<link rel="icon" type="image/png" href="icon.png">
+<style>
+  :root {
+    --ink: #0b0b12;
+    --ink-deep: #000000;
+    --panel: #16161f;
+    --panel-edge: #2a2a3a;
+    --pop: #ff2bd6;
+    --pop-dim: #b01893;
+    --electro: #2fb8ff;
+    --paper: #ffffff;
+    --ink-soft: #a9a9bd;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px;
+    position: relative;
+    overflow-x: hidden;
+
+    background-image:
+      radial-gradient(circle at 18% 20%, rgba(255, 43, 214, 0.20), transparent 40%),
+      radial-gradient(circle at 84% 78%, rgba(47, 184, 255, 0.18), transparent 42%);
+    background-color: var(--ink);
+  }
+
+  /* Centred when there is room; starts at the top when the page is taller
+     than the screen, so nothing is cut off. */
+  .stage {
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+  }
+
+  .back {
+    display: inline-block;
+    margin: 0 0 16px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+
+  .back:hover { color: var(--paper); }
+  .back:focus-visible { outline: 3px solid var(--electro); outline-offset: 3px; }
+
+  .card {
+    position: relative;
+    background: linear-gradient(180deg, var(--panel), var(--ink-deep));
+    border: 1px solid var(--panel-edge);
+    clip-path: polygon(0 18px, 18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%);
+    padding: 40px 32px 32px;
+    box-shadow: 0 30px 70px -25px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--electro);
+    margin: 0 0 22px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--electro);
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+    flex: none;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .brand img {
+    width: 84px;
+    height: 84px;
+    flex: none;
+    border-radius: 18px;
+    background: var(--ink-deep);
+  }
+
+  .wordmark {
+    flex: 1;
+    min-width: 0;
+    font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 900;
+    font-size: clamp(19px, 5.8vw, 36px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--paper);
+    overflow-wrap: anywhere;
+  }
+
+  .wordmark span {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.5em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pop);
+  }
+
+  .tagline {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: 22px 0 30px;
+  }
+
+  .tagline strong {
+    color: var(--paper);
+    font-weight: 600;
+  }
+
+  .cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px 20px;
+    background: var(--pop);
+    color: var(--ink-deep);
+    font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    clip-path: polygon(0 10px, 10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+    box-shadow: 0 6px 0 var(--pop-dim), 0 14px 30px -10px rgba(255, 43, 214, 0.55);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    cursor: pointer;
+  }
+
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 8px 0 var(--pop-dim), 0 18px 34px -8px rgba(255, 43, 214, 0.6); }
+  .cta:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--pop-dim), 0 8px 20px -10px rgba(255, 43, 214, 0.5); }
+  .cta:focus-visible { outline: 3px solid var(--electro); outline-offset: 3px; }
+
+  .cta svg { width: 20px; height: 20px; flex: none; }
+
+  .fine-print {
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin: 12px 0 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    margin: 30px 0 0;
+    background: var(--panel-edge);
+    border: 1px solid var(--panel-edge);
+  }
+
+  .stat {
+    background: var(--ink-deep);
+    padding: 12px 10px;
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--electro);
+    margin-bottom: 5px;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--paper);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .install-note {
+    margin: 28px 0 0;
+    padding-top: 22px;
+    border-top: 1px dashed var(--panel-edge);
+  }
+
+  .install-note p {
+    margin: 0 0 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .install-note ol {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .install-note li::marker {
+    color: var(--electro);
+    font-weight: 700;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 24px 16px; }
+    .brand { gap: 12px; }
+    .brand img { width: 64px; height: 64px; border-radius: 14px; }
+  }
+
+  @media (max-width: 380px) {
+    .card { padding: 32px 22px 26px; }
+    .brand img { width: 56px; height: 56px; }
+    .stat-value { font-size: 12.5px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="card">
+    <p class="eyebrow">Family · Android APK</p>
+    <div class="brand">
+      <img src="icon.png" alt="" width="84" height="84">
+      <h1 class="wordmark">DORA <span>family &amp; emergency</span></h1>
+    </div>
+    <p class="tagline">See where your family is, <strong>ring their phone or send an SOS</strong>, get offline directions, and share your location by text even without internet. Updates itself after this first install.</p>
+
+    <!-- This link always gives the newest release, as long as the APK keeps the same file name. -->
+    <a class="cta" id="download-link" href="https://github.com/braekstudio/dora-releases/releases/latest/download/DORA.apk" download target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M6 11l6 6 6-6"/><path d="M4 20h16"/></svg>
+      Download APK
+    </a>
+    <p class="fine-print" id="fine-print">Latest version · direct from GitHub</p>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">Platform</span>
+        <span class="stat-value">Android 8+</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Version</span>
+        <span class="stat-value" id="stat-version">Latest</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Size</span>
+        <span class="stat-value" id="stat-size">123 MB</span>
+      </div>
+    </div>
+
+    <div class="install-note">
+      <p>How to install</p>
+      <ol>
+        <li>Tap Download and wait for it to finish (Wi-Fi recommended).</li>
+        <li>If you had an older DORA, uninstall it first.</li>
+        <li>Open the downloaded file from your notifications. If asked, allow installs from this source — then tap Install.</li>
+        <li>Open DORA, allow location "All the time", and join your family by scanning their QR code.</li>
+        <li>For the offline map, open Offline map and download the Philippines map once (about 560 MB, on Wi-Fi).</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var API_URL = "https://api.github.com/repos/braekstudio/dora-releases/releases/latest";
+
+  function formatSize(bytes) {
+    return Math.round(bytes / 1024 / 1024) + " MB";
+  }
+
+  fetch(API_URL, { headers: { Accept: "application/vnd.github+json" } })
+    .then(function (res) {
+      if (!res.ok) throw new Error("GitHub API returned " + res.status);
+      return res.json();
+    })
+    .then(function (release) {
+      var asset = (release.assets || []).find(function (a) {
+        return /\.apk$/i.test(a.name);
+      });
+      if (!asset) return;
+
+      var tag = release.tag_name || "";
+      var versionLabel = tag.replace(/^v/i, "");
+      var sizeLabel = formatSize(asset.size);
+
+      var link = document.getElementById("download-link");
+      if (link) link.href = asset.browser_download_url;
+
+      var finePrint = document.getElementById("fine-print");
+      if (finePrint) finePrint.textContent = tag + " · " + sizeLabel + " · direct from GitHub";
+
+      var versionStat = document.getElementById("stat-version");
+      if (versionStat) versionStat.textContent = versionLabel;
+
+      var sizeStat = document.getElementById("stat-size");
+      if (sizeStat) sizeStat.textContent = sizeLabel;
+    })
+    .catch(function (err) {
+      // silent fallback - the static href/text already in the page keep working as-is
+      console.warn("DORA: could not fetch latest release info, showing the generic text.", err);
+    });
+})();
+</script>
+
+</body>
+</html>
