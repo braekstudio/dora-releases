@@ -24,6 +24,9 @@ jobs:
           echo "Newest release: $latest"
           gh release list --repo "$REPO" --exclude-drafts --limit 1000 --json tagName --jq '.[].tagName' |
           while read -r tag; do
+            # Only app versions (v4.23 ...). Other releases, like the offline map
+            # (map-philippines), must stay public: the app downloads from them.
+            case "$tag" in v[0-9]*) ;; *) echo "Keeping $tag"; continue ;; esac
             if [ "$tag" != "$latest" ]; then
               echo "Hiding $tag"
               gh release edit "$tag" --repo "$REPO" --draft=true
